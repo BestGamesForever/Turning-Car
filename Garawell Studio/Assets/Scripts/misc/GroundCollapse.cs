@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GroundCollapse : MonoBehaviour
 {
     [SerializeField] GameObject[] piecesContain;
-    [SerializeField] Material material;
+    [SerializeField] Transform player;
+    [SerializeField] GameObject GameOverPanel;
     float startTime;
 
     void Start()
@@ -15,7 +17,15 @@ public class GroundCollapse : MonoBehaviour
     private void FixedUpdate()
     {
         startTime += Time.deltaTime;
+        if (player.position.y<=-10)
+        {
+            GameOverPanel.SetActive(true);
+        }
        
+    }
+    public void StartAgain(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
     IEnumerator collapseround()
     {
@@ -128,4 +138,5 @@ public class GroundCollapse : MonoBehaviour
             yield return null;
         }        
     }
+   
 }

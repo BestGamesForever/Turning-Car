@@ -193,6 +193,10 @@ public class SimpleCarController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            horizontal = 0;
+        }
             Quaternion target;
         if (horizontal > 0)
         { //later change this to what button is pressed intead of horizontal 
@@ -280,26 +284,27 @@ public class SimpleCarController : MonoBehaviour
         buttonDown = false;
     }
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.gameObject.CompareTag("Faster"))
-    //     {
-    //         other.gameObject.SetActive(false);
-    //         turnNumber = 5;
-    //         StartCoroutine(fastTurn());
-    //     }
-    //
-    // }
-    //
-    // IEnumerator fastTurn()
-    // {
-    //     while (turnNumber>0)
-    //     {
-    //         Debug.Log(turnNumber);
-    //         TurningBall.transform.localRotation = Quaternion.Euler(Vector3.up * 100);
-    //         yield return null;
-    //     }
-    //    
-    // }
+     private void OnTriggerEnter(Collider other)
+     {
+         if (other.gameObject.CompareTag("Faster"))
+         {
+             other.gameObject.SetActive(false);
+             turnNumber = 5;
+             StartCoroutine(fastTurn());
+         }
+    
+     }
+    
+     IEnumerator fastTurn()
+     {
+         while (turnNumber>0)
+         {
+             Debug.Log(turnNumber);
+            TurningBall.GetComponent<Rigidbody>().isKinematic = true;
+             TurningBall.transform.localRotation = Quaternion.Euler(Vector3.up * 100);
+             yield return null;
+         }
+        
+     }
 }
 
