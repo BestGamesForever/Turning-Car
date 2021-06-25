@@ -5,10 +5,29 @@ using UnityEngine.AI;
 
 public class HitEnemy : MonoBehaviour
 {
+    [SerializeField] Transform Playeritself;
     private void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.GetComponent<CarChasingController>().enabled = false;
-        int value = Random.Range(2, 5);
-        collision.gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(value,value,value) * 5);
+        if (collision.gameObject.tag=="Faster")
+        {
+            
+            StartCoroutine(Hitenemy());
+        }
+       
     }
+    private IEnumerator Hitenemy()
+    {      
+        var distance = new Vector3(0,5,0) + Playeritself.position;
+
+      
+        {
+            Playeritself.position = Vector3.Lerp(Playeritself.position, distance, Time.deltaTime * 2f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        Playeritself.position = new Vector3(Playeritself.position.x, 0, Playeritself.position.z);
+     
+    }
+
+
 }

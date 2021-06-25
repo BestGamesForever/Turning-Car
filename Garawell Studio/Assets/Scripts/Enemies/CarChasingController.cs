@@ -9,6 +9,7 @@ public class CarChasingController : MonoBehaviour
     public static bool stopIfGameOver = true;
     [SerializeField] GameObject Player;
     [SerializeField] Rigidbody _rb;
+    [SerializeField] Transform _BallTransform;
     void Update()
     {
         DistanceFind();
@@ -17,12 +18,13 @@ public class CarChasingController : MonoBehaviour
 
     private void DistanceFind()
     {
-        float distance = (gameObject.transform.position - Player.transform.position).magnitude;
-      //  Debug.Log("distance" + distance);
+        float distance = (gameObject.transform.position - Player.transform.position).magnitude;     
         if (distance<=12)
         {
-            Quaternion deltaRotation = Quaternion.Euler(Vector3.up * 25 * Time.deltaTime);
-            _rb.MoveRotation(_rb.rotation * deltaRotation);          
+            //Quaternion deltaRotation = Quaternion.Euler(Vector3.up * 25 * Time.deltaTime);
+            //_rb.MoveRotation(_rb.rotation * deltaRotation);
+
+            _BallTransform.RotateAround(transform.position, Vector3.up, 720 * Time.deltaTime);
         }
     }
 
@@ -58,15 +60,7 @@ public class CarChasingController : MonoBehaviour
             stopIfGameOver = false;
         }
      
-    }
-    private void OnTriggerStay(Collider other)
-    {
-       // if (other.gameObject.CompareTag("Player"))
-       // {
-       //   
-       // }
-       
-    }
+    }   
 }
 
 

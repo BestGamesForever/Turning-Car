@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] Rigidbody Followtransform;
+    [SerializeField] Transform Followtransform;
     [SerializeField] Vector3 offset;
     [SerializeField] float _followspeed;
     
 
-    private void Update()
+    private void LateUpdate()
     {
         if (Followtransform!=null)
         {
